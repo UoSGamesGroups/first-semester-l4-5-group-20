@@ -1,23 +1,42 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
-
-
+ 
 public class Movement : MonoBehaviour {
+ 
+    float rotationSpeed = 100.0f;
+    float thrustForce = 3f;
 
-	public float speed = 5;
+	public GameObject bullet;
+ 
+ 
+ 
+    void Start(){
 
+    }
+ 
+    void FixedUpdate () {
+ 
+        // Rotate the ship if necessary
+        transform.Rotate(0, 0, -Input.GetAxis("Horizontal")*
+            rotationSpeed * Time.deltaTime);
+ 
+        // Thrust the ship if necessary
+        GetComponent<Rigidbody2D>().
+            AddForce(transform.up * thrustForce *
+                Input.GetAxis("Vertical"));
+		
+		// Has a bullet been fired
+		if (Input.GetMouseButtonDown (0))
+			ShootBullet ();
+ 
+    }
 
-	// Use this for initialization
-	void Start () {
+	void ShootBullet(){
+
+		// Spawn a bullet
+		Instantiate(bullet,
+			new Vector3(transform.position.x,transform.position.y, 0),
+			transform.rotation);
 	}
-
-	// Update is called once per frame
-	void Update () {
-
-		//Movement
-		var move = new Vector3 (Input.GetAxis("Horizontal"),0);
-		transform.position += move*speed*Time.deltaTime;
-
-		}
-	}
+ 
+}
