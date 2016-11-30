@@ -4,7 +4,7 @@ using System.Collections;
 public class MouseFire : MonoBehaviour {
 	
 	public GameObject bullet;
-	public float speed = 5.0f;
+	public float speed = 10.0f;
     public bool GCD = false;
     public int GLOBALCOOLDOWN = 1;
 	

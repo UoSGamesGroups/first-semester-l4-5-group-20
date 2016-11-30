@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ProgressBar : MonoBehaviour {
 
-    public float Progress = 0.0f;
+    public int Progress = 25;
     public GameObject Fog1;
     public GameObject Fog2;
     public GameObject Fog3;
