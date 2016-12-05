@@ -5,7 +5,6 @@ public class PlayerHealth : MonoBehaviour {
 
 	private bool CanBeHit = true;
 	private float Timer = 0.5f;
-	private int Progressing = 0;
 	private GameObject Game_Controller;
 	private ProgressBar ProgressScript;
 
