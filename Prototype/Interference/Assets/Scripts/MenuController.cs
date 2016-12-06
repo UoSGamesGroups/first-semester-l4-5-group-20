@@ -1,36 +1,43 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class MenuController : MonoBehaviour 
 {
-	private GameObject Camera;
-	public GameObject Play;
-	public GameObject Instructions;
-	public GameObject Quit;
+    public int sceneIndex = 0;
 
-	void Start () 
+	void OnMouseDown ()
 	{
-		Camera = GameObject.Find ("Main Camera");
-		Camera.transform.position = new Vector3 (-55, 0, -10);
-		Time.timeScale = 0;
-	}
+        if (sceneIndex == 1)
+        {
+            PlayScene();
+        }
+        else if (sceneIndex == 2)
+        {
+            InstructionScene();
+        }
+        else if (sceneIndex == 3)
+        {
+            MenuScene();
+        }
+        else if (sceneIndex == 4)
+        {
+            Application.Quit();
+        }
+    }
 
-	void Update () 
-	{
-	
-	}
+    void InstructionScene()
+    {
+        SceneManager.LoadScene("Instructions", LoadSceneMode.Single);
+    }
 
-	void OnTrigger2D (Collider2D coll)
-	{
-		if (coll.gameObject.tag ==  "Play")
-		{
-			Camera.transform.position = new Vector3 (0, 0, -10);
-			Time.timeScale = 1;
-		}
+    void PlayScene()
+    {
+        SceneManager.LoadScene("Interference", LoadSceneMode.Single);
+    }
 
-		if (coll.gameObject.tag == "Instructions") 
-		{
-			Camera.transform.position = new Vector3 (-27, 0, -10);
-		}
-	}
+    void MenuScene()
+    {
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+    }
 }

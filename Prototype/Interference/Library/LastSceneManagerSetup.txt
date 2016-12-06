@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Interference.unity
+- path: Assets/Scenes/Interference.unity
   isLoaded: 1
   isActive: 1
