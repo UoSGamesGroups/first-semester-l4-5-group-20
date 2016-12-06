@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class ProgressBar : MonoBehaviour {
 
@@ -8,6 +9,8 @@ public class ProgressBar : MonoBehaviour {
     public GameObject Fog2;
     public GameObject Fog3;
     public GameObject Fog4;
+
+    public Slider MainSlider;
 
     void Start ()
     {
@@ -19,7 +22,7 @@ public class ProgressBar : MonoBehaviour {
 
     void Update ()
     {
-        GetComponent<TextMesh>().text = Progress + ": ";
+        MainSlider.value = Progress;
 
         if (Progress >= 25 & Progress <= 49)
         {
