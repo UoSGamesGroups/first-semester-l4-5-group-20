@@ -3,6 +3,17 @@ using System.Collections;
 
 public class bulletController : MonoBehaviour
 {
+
+	public AudioClip shootSound;
+	private AudioSource source;
+
+
+	void Awake () {
+
+		source = GetComponent<AudioSource>();
+
+	}
+
     void OnCollisionEnter2D(Collision2D coll)
     {
         if (coll.gameObject.tag == "Enemy")
@@ -10,6 +21,7 @@ public class bulletController : MonoBehaviour
             Progress();
             Destroy(coll.gameObject);
             Destroy(gameObject);
+			source.PlayOneShot(shootSound);
         }
     }
     
@@ -24,4 +36,6 @@ public class bulletController : MonoBehaviour
 	{
 		Destroy (gameObject);
 	}
+
+
 }
