@@ -1,24 +1,31 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Shield : MonoBehaviour 
 {
 	bool ShieldsUp = false;
 	bool ShieldCD = true;
-	public GameObject PlasmaShield;
-	private GameObject InstantiateShield;
+	public Animator anim;
 	int Cooldown = 10;
-	int Charge = 2;
+    int tempTimer;
+    int Charge = 2;
+    public Renderer Render;
+    public Slider MainSlider;
 
-	void Update () 
+    void Update () 
 	{
+        MainSlider.value = tempTimer;
+
 		if ((ShieldCD) && (Input.GetKeyDown (KeyCode.E)) && (!ShieldsUp))
 		{
-			StartCoroutine(ShieldActive());
+            Render.enabled = true;
+            StartCoroutine(ShieldActive());
 		}
 		else if ((!ShieldCD) && (!ShieldsUp))
 		{
-			StartCoroutine(ShieldRecharge());
+            Render.enabled = false;
+            StartCoroutine(ShieldRecharge());
 		}
 	}
 
@@ -26,17 +33,23 @@ public class Shield : MonoBehaviour
 	{
 		ShieldsUp = true;
 		Vector3 myPos = new Vector3(transform.position.x,transform.position.y, 0);
-		InstantiateShield = (GameObject) Instantiate(PlasmaShield, new Vector3(myPos.x,myPos.y,0), Quaternion.identity);
-		InstantiateShield.transform.parent = gameObject.transform;
+        anim.SetBool("Shield", true);
 		yield return new WaitForSeconds (Charge);
-		Destroy (InstantiateShield);
+        anim.SetBool("Shield", false);
 		ShieldCD = false;
 		ShieldsUp = false;
 	}
 
 	IEnumerator ShieldRecharge ()
 	{
-		yield return new WaitForSeconds (Cooldown);
+        tempTimer = Cooldown;
+
+        for (int i = Cooldown; i > 0; i -= 1)
+        {
+            tempTimer -= 1;
+            yield return new WaitForSeconds(1);
+        }
+
 		ShieldCD = true;
 	}
 }

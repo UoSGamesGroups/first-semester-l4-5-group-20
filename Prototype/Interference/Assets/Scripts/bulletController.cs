@@ -19,9 +19,9 @@ public class bulletController : MonoBehaviour
         if (coll.gameObject.tag == "Enemy")
         {
             Progress();
+            source.PlayOneShot(shootSound);
             Destroy(coll.gameObject);
             Destroy(gameObject);
-			source.PlayOneShot(shootSound);
         }
     }
     

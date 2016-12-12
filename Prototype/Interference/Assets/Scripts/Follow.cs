@@ -35,19 +35,5 @@ public class Follow : MonoBehaviour {
 			transform.position += transform.up * (EnemySpeed * Time.deltaTime);
 		}
     }
-
-    /*
-    void OnBecameVisible() 
-    {
-    	alive = true;
-    }
-
-    void OnBecameInvisible() 
-    {
-		if (alive == true) 
-		{
-			Destroy(gameObject);
-		}
-	}*/
 }
  

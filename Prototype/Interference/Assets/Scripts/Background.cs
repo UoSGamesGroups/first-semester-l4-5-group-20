@@ -23,6 +23,7 @@ public class Background : MonoBehaviour {
         if (ProgressScript.Progress >= 100)
         {
             Level += 1;
+            ProgressScript.Progress = 0;
         }
 
         if (Level == 1)
