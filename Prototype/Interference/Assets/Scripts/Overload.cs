@@ -11,8 +11,19 @@ public class Overload : MonoBehaviour
     int tempTimer;
     public Renderer Render;
     public Slider MainSlider;
-	
-	void Update ()
+    public PolygonCollider2D OverloadCollider;
+    private GameObject Game_Controller;
+    private ProgressBar ProgressScript;
+    public bool OverloadActivated = false;
+
+    void Start ()
+    {
+        Game_Controller = GameObject.Find("Game_Controller");
+        ProgressScript = Game_Controller.GetComponent<ProgressBar>();
+        OverloadCollider.enabled = false;
+    }
+
+    void Update ()
 	{
         MainSlider.value = tempTimer;
 
@@ -28,7 +39,16 @@ public class Overload : MonoBehaviour
 		}
 	}
 
-	IEnumerator OverloadRecharge ()
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.tag == "Enemy")
+        {
+            ProgressScript.Progress += 1;
+            Destroy(coll.gameObject);
+        }
+    }
+
+    IEnumerator OverloadRecharge ()
 	{
         tempTimer = Cooldown;
 
@@ -43,10 +63,13 @@ public class Overload : MonoBehaviour
 
 	IEnumerator OverloadActive ()
 	{
-		Vector3 myPos = new Vector3(transform.position.x,transform.position.y,0);
+        OverloadCollider.enabled = true;
+        OverloadActivated = true;
         anim.SetBool("Overload", true);
         yield return new WaitForSeconds (Visable);
         anim.SetBool("Overload", false);
+        OverloadActivated = false;
+        OverloadCollider.enabled = false;
         OverloadCD = false;
 	}
 }

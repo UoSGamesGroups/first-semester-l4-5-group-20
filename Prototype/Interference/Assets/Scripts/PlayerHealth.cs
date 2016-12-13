@@ -7,22 +7,43 @@ public class PlayerHealth : MonoBehaviour {
 	private float Timer = 0.5f;
 	private GameObject Game_Controller;
 	private ProgressBar ProgressScript;
+    public Shield ShieldScript;
+    public PolygonCollider2D PlayerCollider;
+    public Overload OverloadScript;
 
 	void Start ()
 	{
 		CanBeHit = true;
 		Game_Controller = GameObject.Find ("Game_Controller");
 		ProgressScript = Game_Controller.GetComponent<ProgressBar> ();
-	}
+    }
 
+    void Update ()
+    {
+        if (!ShieldScript.ShieldsUp)
+        {
+            PlayerCollider.enabled = true;
+        }
+        else if (ShieldScript.ShieldsUp)
+        {
+            PlayerCollider.enabled = false;
+        }
+    }
+    
 	void OnCollisionEnter2D (Collision2D other)
 	{
 		if (other.gameObject.tag == "Enemy") 
 		{
-			if (CanBeHit)
-			{
-				Progress ();
-			}
+            if (!ShieldScript.ShieldsUp)
+            {
+                if (!OverloadScript.OverloadActivated)
+                {
+                    if (CanBeHit)
+                    {
+                        Progress();
+                    }
+                }
+            }
 		}
 	}
 

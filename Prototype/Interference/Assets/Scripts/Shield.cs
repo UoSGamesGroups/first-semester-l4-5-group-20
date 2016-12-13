@@ -4,7 +4,7 @@ using System.Collections;
 
 public class Shield : MonoBehaviour 
 {
-	bool ShieldsUp = false;
+	public bool ShieldsUp = false;
 	bool ShieldCD = true;
 	public Animator anim;
 	int Cooldown = 10;
@@ -32,7 +32,6 @@ public class Shield : MonoBehaviour
 	IEnumerator ShieldActive ()
 	{
 		ShieldsUp = true;
-		Vector3 myPos = new Vector3(transform.position.x,transform.position.y, 0);
         anim.SetBool("Shield", true);
 		yield return new WaitForSeconds (Charge);
         anim.SetBool("Shield", false);
